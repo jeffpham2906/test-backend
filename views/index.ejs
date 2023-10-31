@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Testing</h1>
+    <form action="/upload" method="post" id="form" enctype="multipart/form-data">
+      <input type="file" name="image" id="image" />
+      <img src="" alt="" id="img" />
+      <button id="btn">Submit file</button>
+    </form>
+    <script>
+      const file = document.getElementById("image");
+      const form = document.getElementById("form");
+      const img = document.getElementById("img");
+      let anh;
+      file.onchange = (e) => {
+        anh = e.target.files[0];
+        if (anh.type && !anh.type.startsWith("image/")) {
+          console.log("File is not an image.", anh.type, anh);
+          return;
+        }
+        const reader = new FileReader();
+        reader.addEventListener("load", (e) => {
+          img.src = e.target.result;
+        });
+        reader.readAsDataURL(anh);
+      };
+
+      form.onsubmit = async () => {
+        console.log("submit");
+      };
+    </script>
+  </body>
+</html>
